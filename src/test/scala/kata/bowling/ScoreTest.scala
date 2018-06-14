@@ -55,4 +55,12 @@ class ScoreTest extends FunSuite {
     }
   }
 
+  //hmmm
+  test("recursive accumulator"){
+    val game = List(NormalFrame(3, 4), StrikeFrame(), NormalFrame(5, 1))
+
+    assertResult(List(7, 23, 29)){
+      ScoreUtils.getTotalsRec(game)
+    }
+  }
 }

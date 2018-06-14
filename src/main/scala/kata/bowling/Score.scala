@@ -40,4 +40,16 @@ object ScoreUtils {
       accum
     }
   }
+
+  // for-loop with tail end recursion
+  def getTotalsRec(game: List[Frame]): List[Int] = {
+    val score = (getBaseScore(game), getBonus(game)).zipped.map(_ + _)
+    def recursiveAccum(score: List[Int], result: List[Int]): List[Int] = {
+      score match {
+        case Nil => result
+        case _ => recursiveAccum(score.tail, result ++ List(score.head + result.last))
+      }
+    }
+    recursiveAccum(score, List[Int](0)).tail
+  }
 }

@@ -1,0 +1,9 @@
+# ignore builds
+target
+project/target
+
+# Idea
+.idea/
+
+#OSX
+.DS_Store

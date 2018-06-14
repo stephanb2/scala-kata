@@ -7,19 +7,19 @@ object ScoreUtils {
   val N_FRAMES = 10
 
   def getBaseScore(game: List[Frame]): List[Int] = {
-    game.take(N_FRAMES)
-      .map(f => f.knock._1 + f.knock._2)
+    game.take(N_FRAMES).map(_.knock.sum)
   }
 
 
   def getBonus(game: List[Frame]): List[Int] = {
     var result = mutable.MutableList[Int]()
 
+    //TODO: add method contract (?)
     for (i <- 0 to game.length - 2) {
       val bonus = game(i) match {
         case n: NormalFrame => 0
-        case s: SpareFrame => game(i + 1).knock._1
-        case s: StrikeFrame => game(i + 1).knock._1 + game(i + 1).knock._2
+        case s: SpareFrame => game(i + 1).knock.head
+        case s: StrikeFrame => game(i + 1).knock.sum
       }
       result += bonus
     }

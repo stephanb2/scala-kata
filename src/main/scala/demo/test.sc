@@ -11,3 +11,5 @@ mulist.head
 
 val li2 = List(12, 6)
 li2.sum
+
+li2.head

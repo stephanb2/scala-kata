@@ -13,3 +13,7 @@ val li2 = List(12, 6)
 li2.sum
 
 li2.head
+
+list match {
+  case x :: xs => println(x + "---" + xs)
+}

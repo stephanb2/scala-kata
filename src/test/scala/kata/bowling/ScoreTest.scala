@@ -4,7 +4,7 @@ import org.scalatest.FunSuite
 
 class ScoreTest extends FunSuite {
 
-  test("trivial game, simple frames only") {
+  test("trivial game, normal frames only") {
     val game = List(NormalFrame(3, 4), NormalFrame(5, 1))
 
     assertResult(List(7, 6)) {
@@ -12,7 +12,7 @@ class ScoreTest extends FunSuite {
     }
   }
 
-  test("spare frame") {
+  test("one spare frame") {
     val game = List(NormalFrame(3, 4), SpareFrame(3), NormalFrame(5, 1))
 
     assertResult(List(7, 10, 6)) {
@@ -28,7 +28,8 @@ class ScoreTest extends FunSuite {
     }
   }
 
-  test("strike") {
+
+  test("one strike") {
     val game = List(NormalFrame(3, 4), StrikeFrame(), NormalFrame(5, 1))
 
     assertResult(List(0, 6, 0)) {
@@ -55,12 +56,4 @@ class ScoreTest extends FunSuite {
     }
   }
 
-  //hmmm
-  test("recursive accumulator"){
-    val game = List(NormalFrame(3, 4), StrikeFrame(), NormalFrame(5, 1))
-
-    assertResult(List(7, 23, 29)){
-      ScoreUtils.getTotalsRec(game)
-    }
-  }
 }

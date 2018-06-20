@@ -1,7 +1,8 @@
-package demo
+package scratch
 
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, Ignore}
 
+@Ignore
 class HelloTest extends FunSuite {
 
   test("Hello world") {

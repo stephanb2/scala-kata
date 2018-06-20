@@ -1,4 +1,4 @@
-package demo
+package scratch
 
 case class Hello(name: String) {
 

@@ -39,21 +39,21 @@ class KeyUtilsTest extends FlatSpec {
     assertResult(3) { KeyUtils.countFuzzyMatches(guess, secret) }
   }
 
-  "blackWhiteCount" should "match Plos One example R B G Y | R O O B" in {
-    val guess = Vector(1, 2, 3, 4)
-    val secret = Vector(1, 0, 0, 2)
+  "blackWhiteCount" should "match Plos One example 1: R B G Y | R O O B" in {
+    val guess = KeyUtils.stringToVec("R G B Y") //Vector(1, 2, 3, 4)
+    val secret = KeyUtils.stringToVec("R O O B") //Vector(1, 0, 0, 2)
     assertResult(List(1, 1)) { KeyUtils.blackWhiteCount(guess, secret) }
   }
 
-  "blackWhiteCount" should "match Plos One example P O G Y | R O O B" in {
-    val guess = Vector(5, 0, 3, 4)
-    val secret = Vector(1, 0, 0, 2)
+  "blackWhiteCount" should "match Plos One example 2: P O G Y" in {
+    val guess = KeyUtils.stringToVec("P O G Y")
+    val secret = KeyUtils.stringToVec("R O O B")
     assertResult(List(1, 0)) { KeyUtils.blackWhiteCount(guess, secret) }
   }
 
-  "blackWhiteCount" should "match Plos One example R O B 0 | R O O B" in {
-    val guess = Vector(1, 0, 2, 0)
-    val secret = Vector(1, 0, 0, 2)
+  "blackWhiteCount" should "match Plos One example 5: R O B O " in {
+    val guess = KeyUtils.stringToVec("R O B O")
+    val secret = KeyUtils.stringToVec("R O O B")
     assertResult(List(2, 2)) { KeyUtils.blackWhiteCount(guess, secret) }
   }
 

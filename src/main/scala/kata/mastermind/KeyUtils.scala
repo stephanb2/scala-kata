@@ -28,4 +28,9 @@ object KeyUtils {
     val whites = countFuzzyMatches(fuzzyGuess, fuzzySecret)
     List(blacks, whites)
   }
+
+  def stringToVec(entry: String, skip: String = " "): Vector[Int] = {
+    entry.replaceAll(" ","")
+      .toCharArray.map(_.toInt).toVector
+  }
 }

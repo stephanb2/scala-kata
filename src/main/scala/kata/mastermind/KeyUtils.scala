@@ -22,7 +22,7 @@ object KeyUtils {
     }
   }
 
-  def blackWhiteCount(guess: Vector[Int], secret: Vector[Int]): List[Int] = {
+  def blackWhiteHits(guess: Vector[Int], secret: Vector[Int]): List[Int] = {
     val (fuzzyGuess, fuzzySecret) = dropExactMatches(guess, secret)
     val blacks = guess.length - fuzzyGuess.length
     val whites = countFuzzyMatches(fuzzyGuess, fuzzySecret)
@@ -33,4 +33,5 @@ object KeyUtils {
     entry.replaceAll(" ","")
       .toCharArray.map(_.toInt).toVector
   }
+
 }

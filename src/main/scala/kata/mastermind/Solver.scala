@@ -1,6 +1,6 @@
 package kata.mastermind
 
-object SolverUtils {
+object Solver {
 
   def enumerateHits(numSymbols: Int = 4): List[List[Int]] = {
     val until3 = List.range(0, numSymbols)

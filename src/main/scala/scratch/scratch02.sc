@@ -9,4 +9,11 @@ val sa = mutable.HashSet(12, 56)
 val found = la.find(sa.contains(_))
 found.getOrElse(-1)
 
-// D. Knuth example secret = 3632
+val va = Vector(1, 2, 4, 5)
+val slice = va.indexOf(2)
+val split = va.splitAt(va.indexOf(2))
+split._1 ++ split._2.tail
+va.contains(2)
+
+
+val splitb = va.splitAt(va.indexOf(3))

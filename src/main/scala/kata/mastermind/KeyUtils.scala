@@ -11,9 +11,10 @@ object KeyUtils {
   def countFuzzyMatches(guess: Vector[Int], secret: Vector[Int], result: Int = 0): Int = {
     guess match {
       case x +: xs => {
-        val found = secret.indexWhere(_ == x)
-        if (-1 != found)
-          countFuzzyMatches(xs, secret.take(found) ++ secret.drop(found + 1), result + 1)
+        if (secret.contains(x)) {
+          val splitSecret = secret.splitAt(secret.indexOf(x))
+          countFuzzyMatches(xs, splitSecret._1 ++ splitSecret._2.tail, result + 1)
+        }
         else
           countFuzzyMatches(xs, secret, result)
       }

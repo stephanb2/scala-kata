@@ -1,9 +1,14 @@
 # ignore builds
 target
+*.class
 project/target
 
 # Idea
-.idea/
+.idea
+*.iml
+*.ipr
+*.iws
+out
 
 #OSX
 .DS_Store

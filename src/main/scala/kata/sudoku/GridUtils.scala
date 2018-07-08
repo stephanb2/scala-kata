@@ -45,10 +45,9 @@ object GridUtils {
   }
 
 
-  //TODO: refactor this horror that took 90 minutes to write
+  //TODO: refactor this 90 minutes horror
   def getCells(input: String): List[Cell] = {
     val indexToRowCol = ((i: Int) => (i / 9 + 1, i % 9 + 1))
-
     val Digits = "[1-9]".r
     val step1 = for (c <- input) yield {
       c match {
@@ -59,7 +58,7 @@ object GridUtils {
     }
     val step2 = step1.filterNot(_ == -1) //skip unknown characters
       .zipWithIndex
-      .filterNot(_._1 == 0) //
+      .filterNot(_._1 == 0) //remove empty cells
 
     step2.map(t => Cell(indexToRowCol(t._2), t._1)).toList
   }

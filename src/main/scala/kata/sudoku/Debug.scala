@@ -23,22 +23,55 @@ object Debug extends App {
       |. . .|7 1 .|. 3 5|
       |9 3 6|. . 2|. . .|
       |5 . .|. . .|4 . 2|
-      |------------------
+      |-----------------|
       |. . 9|. 6 4|. . .|
       |. . 3|. . 1|8 2 .|
       |. 5 8|. . .|. 9 1|
-      |------------------
+      |-----------------|
       |. 4 .|9 . .|1 . .|
       |8 . .|. 7 .|2 . .|
       |6 . .|1 4 .|. . 3|
     """
 
-  //val game1 = Solver.gameStart(kidsGrid)
-  //println(Solver.naiveSolver(game1))
+  val hardGrid =
+    """
+      |4 . .|. . .|. 1 .|
+      |. . .|4 7 .|. 8 .|
+      |1 8 6|. . .|. 4 .|
+      |- - - - - - - - -|
+      |. . .|5 8 .|. . 6|
+      |. 5 .|1 . .|4 2 .|
+      |2 . .|. . 4|. . .|
+      |- - - - - - - - -|
+      |. . 1|. . .|5 . 9|
+      |. 2 .|6 9 .|. . .|
+      |3 . 9|. . 5|. . .|
+    """
 
-  val game2 = Solver.gameStart(easyGrid)
-  val solution2 = Solver.btSolver(game2)
-  println(solution2.drop(game2.cells.size))
-  println(GridUtils.cellsToString(solution2))
+  val veryHardGrid =
+    """
+      |. 6 .|2 . .|. . .|
+      |. . .|. . .|8 . 6|
+      |3 . .|6 . 1|. . .|
+      |- - - - - - - - -|
+      |1 . .|. . 4|. 9 3|
+      |. 4 2|5 . .|. . .|
+      |. . .|. . 9|7 . .|
+      |- - - - - - - - -|
+      |. . 4|. 5 .|. 3 7|
+      |. . 7|. . .|. 4 .|
+      |6 . .|. . 7|. . .|
+    """
 
+  /*
+  val game = Solver.gameStart(easyGrid)
+  val solution = Solver.btSolver(game)
+  println(solution.drop(game.cells.size))
+  println(GridUtils.cellsToString(solution))
+  */
+
+  val game = Solver.gameStart(veryHardGrid) //hardGrid
+  val solution = Solver.btSolver(game)
+  println(solution.drop(game.cells.size))
+  println(GridUtils.cellsToString(solution))
 }

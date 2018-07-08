@@ -33,9 +33,10 @@ class SolverTest extends FlatSpec {
     val game = Solver.gameStart(kidsGrid)
     val nextIndex = game.cells.size
 
-    val solution = Solver.naiveSolver(game)
+    val solution = Solver.btSolver(game)
 
-    assertResult(2) {solution(nextIndex)}
+    assert(81 == solution.size)
+    assert( solution.contains(Cell((1, 4), 2)) )
   }
 
 

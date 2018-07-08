@@ -17,3 +17,4 @@ va.contains(2)
 
 
 val splitb = va.splitAt(va.indexOf(3))
+"1 2".split("\\s+").map(_.toInt).toList

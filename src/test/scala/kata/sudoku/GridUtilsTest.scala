@@ -24,29 +24,29 @@ class GridUtilsTest extends FlatSpec {
     val cell = Cell((3, 5), 1)
     val expectedKeys = Set((1, 4), (1, 5), (1, 6), (2, 4), (2, 5), (2, 6), (3, 4), (3, 5), (3, 6))
 
-    assertResult(expectedKeys) { GridUtils.getSubCubeKeys(cell) }
+    assertResult(expectedKeys) { GridUtils.getSubgridKeys(cell) }
   }
 
 
-  behavior of "getPossibleMoves"
+  behavior of "nextMoves"
 
   it should "eliminate value in the same row" in {
     val cell = Cell((3, 5), 1)
-    val currentMoves = Map((3, 1) -> Set(1, 2, 3), (3, 2) -> Set(4, 5, 6), (3, 7)-> Set(1))
+    val currentMoves = Map((3, 1) -> Set(1, 2, 3), (3, 2) -> Set(4, 5, 6), (3, 5) -> Set(1, 3), (3, 7)-> Set(1))
     val expectedMoves = Map((3, 1) -> Set(2, 3), (3, 2) -> Set(4, 5, 6))
 
-    assertResult(expectedMoves) { GridUtils.getNewMoves(cell, currentMoves) }
+    assertResult(expectedMoves) { GridUtils.nextMoves(cell, currentMoves) }
   }
 
-  it should "eliminate value in the sub-cube" in {
+  it should "eliminate value in the sub-grid" in {
     val cell = Cell((3, 5), 1)
     val currentMoves = Map((1, 4) -> Set(1, 2, 3), (2, 5) -> Set(4, 5, 6), (2, 6)-> Set(1))
     val expectedMoves = Map((1, 4) -> Set(2, 3), (2, 5) -> Set(4, 5, 6))
 
-    assertResult(expectedMoves) { GridUtils.getNewMoves(cell, currentMoves) }
+    assertResult(expectedMoves) { GridUtils.nextMoves(cell, currentMoves) }
   }
 
-  it should "eliminate value in the ropw, column, and sub-cube" in {
+  it should "eliminate value in the row, column, and sub-grid" in {
     val cell = Cell((3, 5), 1)
     val currentMoves = Map((1, 4) -> Set(1, 2, 3), (2, 5) -> Set(4, 5, 6), (2, 6)-> Set(1),
       (3, 1) -> Set(1, 3, 4),
@@ -56,7 +56,30 @@ class GridUtilsTest extends FlatSpec {
       (3, 1) -> Set(3, 4),
       (8, 5) -> Set(4, 5), (9, 5) -> Set(9))
 
-    assertResult(expectedMoves) { GridUtils.getNewMoves(cell, currentMoves) }
+    assertResult(expectedMoves) { GridUtils.nextMoves(cell, currentMoves) }
   }
 
+  "getCells" should "ingest a string-defined grid" in {
+    val grid =
+      """
+        |1 . 7|. 8 5|. 9 .|
+        |6 . .|7 . .|8 5 2|
+        |8 . 5|6 3 .|. . 7|
+        |------------------
+        |3 5 .|. 1 6|. 7 .|
+        |7 1 .|4 . 2|. . 8|
+        |. 8 .|3 . .|9 6 1|
+        |------------------
+        |. 3 4|. . 8|7 . 5|
+        |. . 8|5 7 3|1 . .|
+        |. 7 1|. 2 .|6 8 .|
+      """
+    val game = GridUtils.getCells(grid)
+
+    assert(game(0) == Cell((1, 1), 1))
+    assert(game(1) == Cell((1, 3), 7))
+    assert(game(4) == Cell((1, 8), 9))
+    assert(game(5) == Cell((2, 1), 6))
+    assert(game(11) == Cell((3, 3), 5))
+  }
 }

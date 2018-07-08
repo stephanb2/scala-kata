@@ -21,7 +21,7 @@ object GridUtils {
   }
 
   //TODO: for now, hard coded for 9x9 grids
-  def getSubCubeKeys(move: Cell, gridSize: Int = 9): Set[Tuple2[Int, Int]] = {
+  def getSubgridKeys(move: Cell, gridSize: Int = 9): Set[Tuple2[Int, Int]] = {
     //val base = math.sqrt(gridSize)
     val base = 3
     val rowOffset = base * ((move.key._1 - 1) / base) + 1
@@ -32,16 +32,44 @@ object GridUtils {
   }
 
 
-  def getNewMoves(move: Cell, oldMoves: Moves): Moves = {
+  def nextMoves(move: Cell, possibleMoves: Moves): Moves = {
     val affectedKeys = getRowKeys(move)
       .union(getColumnKeys(move))
-      .union(getSubCubeKeys(move))
+      .union(getSubgridKeys(move))
 
-    val elimination = oldMoves.filterKeys(affectedKeys.contains(_)).transform((key, set) => set - move.value) ++
-      oldMoves.filterKeys(! affectedKeys.contains(_))
+    val elimination = possibleMoves.filterKeys(affectedKeys.contains(_)).transform((key, set) => set - move.value) ++
+      possibleMoves.filterKeys(! affectedKeys.contains(_))
 
-    // Finally, remove empty sets.
-    elimination.filter((t) => t._2.nonEmpty)
+    // Finally, remove move itself and empty sets.
+    elimination.filterKeys(_ != move.key).filter(kv => kv._2.nonEmpty)
+  }
+
+
+  //TODO: refactor this horror that took 90 minutes to write
+  def getCells(input: String): List[Cell] = {
+    val indexToRowCol = ((i: Int) => (i / 9 + 1, i % 9 + 1))
+
+    val Digits = "[1-9]".r
+    val step1 = for (c <- input) yield {
+      c match {
+        case '.' => 0
+        case Digits() => c.toString.toInt
+        case _ => -1
+      }
+    }
+    val step2 = step1.filterNot(_ == -1) //skip unknown characters
+      .zipWithIndex
+      .filterNot(_._1 == 0) //
+
+    step2.map(t => Cell(indexToRowCol(t._2), t._1)).toList
+  }
+
+  def cellsToString(cells: List[Cell]): String = {
+    var grid = Array.ofDim[Int](9, 9)
+    for (cell <- cells) {
+      grid(cell.key._1 - 1)(cell.key._2 - 1) = cell.value
+    }
+    grid.map(_.mkString(" ")).mkString("\n")
   }
 
 }

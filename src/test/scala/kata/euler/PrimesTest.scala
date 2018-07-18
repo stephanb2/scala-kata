@@ -6,13 +6,17 @@ import scala.collection.immutable.{NumericRange, SortedSet}
 
 class PrimesTest extends FlatSpec {
 
-  "Primes.sieve" should "return prime numbers to 20" in {
-    val k = 4L
-    val max = 20L
-    val mulc = NumericRange[Long](k, max, k).toList
-
+  "sieve" should "return prime numbers to 23" in {
+    val max = 24L
     val remaining = SortedSet[Long]() ++ NumericRange[Long](2L, max, 1L)
-    val result = Primes.sieve(remaining, List[Long](), max)
+    val expectedPrimes: List[Long] = List(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L)
+
+    assertResult(expectedPrimes) { Primes.sieve(remaining, List[Long](), max)}
   }
 
+  "getPrimes" should "return prime numbers to 29" in {
+    val expectedPrimes: List[Long] = List(2L, 3L, 5L, 7L, 11L, 13L, 17L, 19L, 23L, 29L)
+
+    assertResult(expectedPrimes) { Primes.getPrimes(29L)}
+  }
 }

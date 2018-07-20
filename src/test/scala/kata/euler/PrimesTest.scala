@@ -28,4 +28,15 @@ class PrimesTest extends FlatSpec {
       Primes.primeDec(input, primes, SparseVec())
     }
   }
+
+  behavior of "primeDec"
+
+  it should "find prime factors of 60" in {
+    assertResult(Map(2L -> 2L, 3L -> 1L, 5L -> 1L)) { Primes.primeDec(60L).data }
+  }
+
+  it should "find prime factors of a product of 2 primes" in {
+    val product = 3L * 23L
+    assertResult(SparseVec().inc(3).inc(23)) { Primes.primeDec(product) }
+  }
 }

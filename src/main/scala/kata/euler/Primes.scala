@@ -25,13 +25,22 @@ object Primes {
 
   @tailrec
   def primeDec(input: Long, primes: List[Long], factors: SparseVec): SparseVec = {
-
     primes match {
-      case Nil => factors
+      case Nil => if (input == 1L)
+        factors
+      else
+        factors.inc(input)
+
       case x::xs => if (input % x == 0)
-          primeDec(input / x, primes, SparseVec.inc(factors, x))
-        else
-          primeDec(input, xs, factors)
+        primeDec(input / x, primes, factors.inc(x))
+      else
+        primeDec(input, xs, factors)
     }
   }
+
+  def primeDec(input: Long): SparseVec = {
+    val primes = getPrimes(math.sqrt(input.toDouble).floor.toLong)
+    primeDec(input, primes, SparseVec())
+  }
+
 }

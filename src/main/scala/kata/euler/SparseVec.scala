@@ -1,15 +1,37 @@
 package kata.euler
 
-case class SparseVec(data: Map[Long, Long] = Map())
+import scala.annotation.tailrec
 
+case class SparseVec(data: Map[Long, Long] = Map()) {
 
-object  SparseVec{
+  def inc(index: Long): SparseVec = {
+    if (data.contains(index))
+      SparseVec( data + (index -> (data(index) + 1L)) )
+    else
+      SparseVec( data + (index -> 1L))
+  }
 
-  def inc(vector: SparseVec,  index: Long): SparseVec = {
-    if (vector.data.isDefinedAt(index)) {
-      SparseVec( vector.data + (index -> (vector.data(index) + 1L)) )
+  def toLong: Long = {
+    data.foldLeft(1L)((x, y) => x * math.pow(y._1, y._2).toLong)
+  }
+}
+
+object SparseVec {
+  type MapLong = Map[Long, Long]
+
+  @tailrec
+  def mapMax(left: MapLong, right: MapLong, result: MapLong = Map()): MapLong = {
+    left.keys.toList match {
+      case k::ks => if (right.contains(k))
+        mapMax(left - k, right - k, result + (k -> math.max(left(k), right(k))) )
+      else
+        mapMax(left - k, right, result + (k -> left(k)) )
+      case Nil => result ++ right
     }
-    else SparseVec( vector.data + (index -> 1L))
+  }
+
+  def max(left: SparseVec, right: SparseVec): SparseVec = {
+    SparseVec(mapMax(left.data, right.data))
   }
 }
 

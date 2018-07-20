@@ -39,4 +39,11 @@ class PrimesTest extends FlatSpec {
     val product = 3L * 23L
     assertResult(SparseVec().inc(3).inc(23)) { Primes.primeDec(product) }
   }
+
+  "sieve" should "find primes to 1e06 fast enough" in {
+    val t0 = System.currentTimeMillis()
+    val primes = Primes.getPrimes(1000000L)
+    val t1 = System.currentTimeMillis()
+    println("Elapsed time: %d ms".format(t1 - t0))
+  }
 }

@@ -12,3 +12,4 @@ val mulc = NumericRange[Long](k, max, k).toList
 
 val remaining = SortedSet[Long]() ++ NumericRange[Long](2L, max, 1L)
 
+40L / 10L

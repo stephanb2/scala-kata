@@ -24,7 +24,14 @@ object Primes {
   }
 
   @tailrec
-  def primeDec(input: Long, primes: List[Long], factors: List[Long] = List()): List[Long] = {
-    return List()
+  def primeDec(input: Long, primes: List[Long], factors: SparseVec): SparseVec = {
+
+    primes match {
+      case Nil => factors
+      case x::xs => if (input % x == 0)
+          primeDec(input / x, primes, SparseVec.inc(factors, x))
+        else
+          primeDec(input, xs, factors)
+    }
   }
 }

@@ -19,4 +19,13 @@ class PrimesTest extends FlatSpec {
 
     assertResult(expectedPrimes) { Primes.getPrimes(29L)}
   }
+
+  "primeDec" should "perform prime factor decomposition" in {
+    val input = 60L
+    val primes = Primes.getPrimes(7)
+
+    assertResult(SparseVec(Map(2L -> 2L, 3L -> 1L, 5L -> 1L))) {
+      Primes.primeDec(input, primes, SparseVec())
+    }
+  }
 }

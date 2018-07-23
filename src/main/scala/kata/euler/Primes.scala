@@ -29,6 +29,12 @@ object Primes {
     }
   }
 
+  def impSieve(max: Long): List[Long] = {
+    //var grid: Array[Boolean] = Array.tabulate(max)(_ % 2 != 0)
+    List()
+
+  }
+
   def getPrimes(max: Long): List[Long] = {
     //val oddIntegers = SortedSet[Long]() ++ NumericRange[Long](3L, max + 1, 2L)
     //return 2L :: sieve(oddIntegers, List[Long](), max + 1)

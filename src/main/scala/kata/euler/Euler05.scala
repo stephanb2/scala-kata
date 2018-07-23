@@ -1,6 +1,6 @@
 package kata.euler
 
-object SmallestMultiple extends App {
+object Euler05 extends App {
 
   val maxVal = 10
   val decomposition = Stream.range(2, maxVal + 1)
@@ -14,6 +14,6 @@ object SmallestMultiple extends App {
   println("smallest multiple of 1..20: %d\n%s\n".format(decomp20.toLong, decomp20))
   // test
   val moolt20 = decomp20.toLong
-  assert(Stream.range(2, 21).map(moolt20 % _).sum == 0)
+  assert(Stream.range(2, 21).map(moolt20 % _).max == 0)
 
 }

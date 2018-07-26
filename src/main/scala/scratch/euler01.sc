@@ -3,8 +3,6 @@ import scala.collection.immutable.{NumericRange, SortedSet}
 // get multiples of k up to m
 def mulb(i: Long = 1): Stream[Long] = i #:: mulb(i).map(_ + i)
 mulb(3).take(4).toList
-mulb(3).take(1).toList.head
-
 
 //mulb(3).filter(_ < 20L).toList
 
@@ -14,14 +12,20 @@ val mulc = NumericRange[Long](k, max, k).toList
 
 val remaining = SortedSet[Long]() ++ NumericRange[Long](2L, max, 1L)
 
-val ma = Map(1 -> 2, 2 -> 3, 5 -> 1)
-val mb = Map(1 -> 4, 2 -> 2, 3 -> 1)
+var grid: Array[Boolean] = Array.tabulate(5)(_ % 2 != 0)
 
-ma.keySet.diff(mb.keySet)
-
-val mm =  ma.filter(x => ma.keySet.diff(mb.keySet).contains(x._1)) ++
-  mb.filter(x => mb.keySet.diff(ma.keySet).contains(x._1))  ++
-  ma.filter(x => ma.keySet.intersect(mb.keySet).contains(x._1))
+//val abs = Stream.range(1, 10).zip(Stream.range(1, 10)).takeWhile(x => x._1 < x._2).map(x => x._1*x._2)
+val abs = Stream.range(1, 10).zip(Stream.range(1, 10)).map(x => (x._1, x._2, x._1*x._2))
 
 
-'0'.toInt
+abs.take(5).toList
+abs.takeWhile(x => x._1 < x._2).toList
+
+math.sqrt(2)
+
+val maxb = 5
+val ll = List.range(1, maxb).flatMap(x => List.range(x+1, maxb).map(y => (x, y)))
+
+val sl = Stream.range(1, maxb).flatMap(x => List.range(x+1, maxb).map(y => (x, y)))
+
+sl.take(5)

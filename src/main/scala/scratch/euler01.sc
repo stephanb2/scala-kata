@@ -24,3 +24,4 @@ val mm =  ma.filter(x => ma.keySet.diff(mb.keySet).contains(x._1)) ++
   ma.filter(x => ma.keySet.intersect(mb.keySet).contains(x._1))
 
 
+'0'.toInt

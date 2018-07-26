@@ -7,7 +7,7 @@ object Euler09 extends App {
   val maxVal = 1000
   val targetVal = 1000
 
-  //Dirty solution
+  //Quick and inefficient solution
   val pairsList = List.range(1, maxVal).flatMap(x => List.range(x+1, maxVal).map(y => (x, y)))
 
   val triplets = pairsList.map(p => (p._1, p._2, math.sqrt(sumSquares(p))))
@@ -17,7 +17,6 @@ object Euler09 extends App {
 
 
   //Iterator solution
-  // doesn't behave as expected. need to implement takeUntil...
   def pairs(maxVal: Int) =
     for (i <- Iterator.range(1, maxVal);
          j <- Iterator.range(i, maxVal) )
@@ -25,7 +24,12 @@ object Euler09 extends App {
 
   val solution2 = pairs(maxVal).map(p => (p._1, p._2, math.sqrt(sumSquares(p))))
     .filter(x => x._3 % 1 == 0) // is square
-    .takeWhile(x => x._1 + x._2 + x._3 != maxVal)
-  println(solution2.toIterable.last)
+    //.takeWhile(x => x._1 + x._2 + x._3 != targetVal)
+
+  // doesn't behave as expected. need to implement takeUntil...
+  var x = (0, 0, 0.0)
+  do { x = solution2.next() }
+  while (x._1 + x._2 + x._3 != targetVal && solution2.hasNext)
+  println(x)
 
 }

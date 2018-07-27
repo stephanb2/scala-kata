@@ -32,7 +32,7 @@ object Euler08 extends App {
   val windowSize = 13
   val products = (0 to sequence.length - windowSize)
       .map(i => sequence.drop(i).take(windowSize)
-      .foldLeft(1)(_ * _))
+      .product)
   val maxProdPos = products.indexWhere(_ == products.max)
   val maxSlice = sequence.drop(maxProdPos).take(windowSize)
 

@@ -8,13 +8,8 @@ object Euler09 extends App {
   val targetVal = 1000
 
   //Quick and inefficient solution
-  val pairsList = List.range(1, maxVal).flatMap(x => List.range(x+1, maxVal).map(y => (x, y)))
-
-  val triplets = pairsList.map(p => (p._1, p._2, math.sqrt(sumSquares(p))))
-    .filter(x => x._3 % 1 == 0) // is square
-    .filter(x => x._1 + x._2 + x._3 == targetVal)
-  println(triplets.head)
-
+  def pairsList(maxVal: Int)= List.range(1, maxVal)
+    .flatMap( x => List.range(x, maxVal).map(y => (x, y)) )
 
   //Iterator solution
   def pairs(maxVal: Int) =
@@ -22,14 +17,25 @@ object Euler09 extends App {
          j <- Iterator.range(i, maxVal) )
       yield (i, j)
 
+  val triplets = pairs(maxVal).map(p => (p._1, p._2, math.sqrt(sumSquares(p))))
+    .filter(x => x._3 % 1 == 0) // is square
+    .filter(x => x._1 + x._2 + x._3 == targetVal)
+  println(triplets.toIterable.head)
+
+
+  //This doesn't work...
   val solution2 = pairs(maxVal).map(p => (p._1, p._2, math.sqrt(sumSquares(p))))
     .filter(x => x._3 % 1 == 0) // is square
-    //.takeWhile(x => x._1 + x._2 + x._3 != targetVal)
+    .takeWhile(x => x._1 + x._2 + x._3 != targetVal)
+  println(solution2.toIterable.last)
 
-  // doesn't behave as expected. need to implement takeUntil...
+
+  val solution3 = pairs(maxVal).map(p => (p._1, p._2, math.sqrt(sumSquares(p))))
+    .filter(x => x._3 % 1 == 0) // is square
+  // need to implement takeUntil...
   var x = (0, 0, 0.0)
-  do { x = solution2.next() }
-  while (x._1 + x._2 + x._3 != targetVal && solution2.hasNext)
+  do { x = solution3.next() }
+  while (x._1 + x._2 + x._3 != targetVal && solution3.hasNext)
   println(x)
 
 }

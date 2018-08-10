@@ -12,22 +12,23 @@ class RhymingTest extends FlatSpec {
 
   "readFile" should "skip comments" in {
     val dict = Rhyming.readFile(fixture.dictFilename)
-    assertResult("!EXCLAMATION-POINT") {dict(0)(0)}
+    assert(!dict.contains("##"))
   }
 
-  it should "break phonemes to a lsit" in {
-    val expected = List("AACHEN",  "AA1", "K", "AH0", "N")
-    assertResult(expected) {fixture.cmuDict.filter(_.head == "AACHEN").head}
+  it should "break phonemes to a list" in {
+    val expected = List("AA1", "K", "AH0", "N")
+    assertResult(expected) {fixture.cmuDict("AACHEN")}
   }
 
   "getTrailingVC" should "find the trailing vowel + consonants" in {
-    val word = fixture.cmuDict.filter(_(0) == "AACHEN").head
+    val word = fixture.cmuDict("AACHEN")
     assertResult("AH0N") {Rhyming.getTrailingVC(word)}
   }
 
-  "getRhymesDict" should "list the rhymes for each word" in {
-    val rhymes = Rhyming.getRhymesDict(fixture.cmuDict)
-    val expected = List("AACHEN", "AH0N")
-    assertResult(expected) {rhymes.filter(_.head == "AACHEN").head}
+  "getRhymesDict" should "list the words for each rhyme" in {
+    val rhymesDict = Rhyming.getRhymesDict(fixture.cmuDict)
+    //val expected = List("AACHEN", "AH0N")
+    assert(rhymesDict("AH0N").contains("AACHEN"))
+    assert(rhymesDict("AH0N").contains("MUSICIAN"))
   }
 }

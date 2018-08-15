@@ -30,4 +30,20 @@ class RhymingListTest extends FlatSpec {
     val expected = List("AACHEN", "AH0N")
     assertResult(expected) {rhymes.filter(_.head == "AACHEN").head}
   }
+
+  it should "allow to list words given a rhyme" in {
+    val rhyme = "AH0N"
+    val rhymesDict = RhymingList.getRhymesDict(fixture.cmuDict)
+    val result = rhymesDict.filter(_.last == rhyme).map(_.head)
+    assert(result.contains("AACHEN"))
+    assert(result.contains("MUSICIAN"))
+  }
+
+  "getRhymingWords" should "list words rhyming with a given word" in {
+    val input = "ORANGE"
+    val rhymesDict = RhymingList.getRhymesDict(fixture.cmuDict)
+    val result = RhymingList.getRhymingWords(input, rhymesDict)
+    assert(result.contains("CHALLENGE"))
+    assert(result.contains("SCAVENGE"))
+  }
 }

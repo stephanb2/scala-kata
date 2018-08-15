@@ -21,5 +21,13 @@ object RhymingList {
     dict.map(x => List(x.head, getTrailingVC(x.tail)))
   }
 
+  def getRhymesDict(dict: BaseDict, numPhonemes: Int): BaseDict = {
+    dict.map(x => List(x.head, x.tail.takeRight(numPhonemes).mkString("")))
+  }
+
+  def getRhymingWords(input: String, rhymesDict: BaseDict): List[String] = {
+    val rhyme = rhymesDict.filter(_.head == input).head.last
+    rhymesDict.filter(_.last == rhyme).map(_.head)
+  }
 
 }

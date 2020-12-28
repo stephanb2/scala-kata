@@ -30,3 +30,11 @@ val periods02 = periods_in02.split(",")
   .map(s => s.toInt)
 
 codeToNext(start02, periods02)
+
+val periods_in03 = "23,x,x,x,x,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,x,x,x,509,x,x,x,x,x,x,x,x,x,x,x,x,13,17,x,x,x,x,x,x,x,x,x,x,x,x,x,x,29,x,401,x,x,x,x,x,37,x,x,x,x,x,x,x,x,x,x,x,x,19"
+val periods03 = periods_in03.split(",")
+  .filter(str => str != "x")
+  .map(s => s.toInt)
+
+codeToNext(1004098, periods03)
+
